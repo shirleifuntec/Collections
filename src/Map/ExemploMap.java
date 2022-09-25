@@ -5,8 +5,13 @@ import java.util.*;
 
 public class ExemploMap {
     public static void main(String[] args) {
-/*
+
+    	
+    	/*
  Dada os modelos dos carros e seus respectivos consumos na estrada, faça:
+ 
+ 
+ //alguns modelos
  modelo = gol - consumo = 14,4km/l
  modelo = uno - consumo = 15,6 km/l
  modelo = mobi - consumo = 16,1 km/l
@@ -20,8 +25,10 @@ public class ExemploMap {
 //        Map<String, Double> carrosPopulares2020 = Map.of("gol", 14.4, "uno", 15.6, "mobi", 16.1, "hb20", 14.5, "kwid", 15.6)
 
         System.out.println("Crie um dicionário que relacione os modelos e seus respectivos consumos: ");
-        Map<String, Double> carrosPopulares = new HashMap<>() {{
-            put("gol", 14.4);
+        Map<String, Double> carrosPopulares = new HashMap<>() {{//iniciou o hashmap
+        	//não existe o método add, utiliza-se o put
+        	//no map as chaves não pode ser duplicadas e valores sim, por isso não duplicamos as marcas dos carros
+        	put("gol", 14.4);
             put("uno", 15.6);
             put("mobi", 16.1);
             put("hb20", 14.5);
@@ -29,51 +36,67 @@ public class ExemploMap {
         }};
         System.out.println(carrosPopulares.toString());
 
+        //não podemos ter chaves repetidas e aqui entao substitui o valor
         System.out.println("Substitua o consumo do gol por 15,2 km/l: ");
         carrosPopulares.put("gol", 15.2);
         System.out.println(carrosPopulares);
 
+       //como tucson é o modelo, e modelo é a chave, utilizamos o método containsKey
         System.out.println("Confira se o modelo tucson está no dicionário: " + carrosPopulares.containsKey("tucson"));
 
+        //metodo get que passa o objeto chave
         System.out.println("Exiba o consumo do uno: " + carrosPopulares.get("uno"));
 
-//        System.out.println("Exiba o terceiro modelo adicionado: ");
+//       //não é possivel pq não temos indice 
+        //System.out.println("Exiba o terceiro modelo adicionado: ");
 
+        //o medoto keySet
         System.out.println("Exiba os modelos: ");
         Set<String> modelos = carrosPopulares.keySet();
         System.out.println(modelos);
 
+        
+        //metodo value, que retorna colletion
         System.out.println("Exiba os consumos dos carros: ");
         Collection<Double> consumos = carrosPopulares.values();
         System.out.println(consumos);
 
+        
+        //qual o valor do carro que faz mais km por litro
         System.out.println("Exiba o modelo mais econômico e seu consumo: ");
-
+//metodo values, que retorna todos os consumos, e colletion max o maior valoe
         Double consumoMaisEficiente = Collections.max(carrosPopulares.values());
+        //metodo entrySet, metodo especial que retorna um set, e os elemntos do tupo entry(string, double)
         Set<Map.Entry<String, Double>> entries = carrosPopulares.entrySet();
-        String modeloMaisEficiente = "";
+        String modeloMaisEficiente = "";//variável auxiliar
 
         for (Map.Entry<String, Double> entry : entries) {
-            if (entry.getValue().equals(consumoMaisEficiente)) {
+        	//se o primeiro elemento for igual ao consumo mais eficiente
+            if (entry.getValue().equals(consumoMaisEficiente)) {//pegue a chave referente  esse valor
                 modeloMaisEficiente = entry.getKey();
+                //se tiver mais de um imprime todos
                 System.out.println("Modelo mais eficiente: " + modeloMaisEficiente + " - " + consumoMaisEficiente);
             }
         }
 
         System.out.println("Exiba o modelo menos econômico e seu consumo: " );
 
+        //aqui necessário trablalhar com os métodos separadamente
         Double consumoMenosEficiente = Collections.min(carrosPopulares.values());
         String modeloMenosEficiente = "";
+        //entrySet retorna um set.
         for (Map.Entry<String, Double> entry: carrosPopulares.entrySet()) {
-            if(entry.getValue().equals(consumoMenosEficiente)) {
-                modeloMenosEficiente = entry.getKey();
+            if(entry.getValue().equals(consumoMenosEficiente)) {//pego o valor menos eficiente e depois a chave do menos eficiente
+                modeloMenosEficiente = entry.getKey();//variavel modelo
                 System.out.println("Modelo menos eficiente: " + modeloMenosEficiente + " - " + consumoMenosEficiente);
             }
         }
 
+        //interator para a soma
+        //retono de valores dos carrosPopulares
         Iterator<Double> iterator = carrosPopulares.values().iterator();
         Double soma = 0d;
-        while(iterator.hasNext()){
+        while(iterator.hasNext()){//interator proximo
             soma += iterator.next();
         }
         System.out.println("Exiba a soma dos consumos: " + soma);
@@ -82,12 +105,14 @@ public class ExemploMap {
 
         System.out.println(carrosPopulares);
         System.out.println("Remova os modelos com o consumo igual a 15,6 km/l: ");
+        //iterator para remoção
         Iterator<Double> iterator1 = carrosPopulares.values().iterator();
         while(iterator1.hasNext()){
-            if(iterator1.next().equals(15.6)) iterator1.remove();
+            if(iterator1.next().equals(15.6)) iterator1.remove();//metodo remove
         }
         System.out.println(carrosPopulares);
 
+        //para isso utilizamos o linkedHashMao
         System.out.println("Exiba todos os carros na ordem em que foram informados: ");
         Map<String, Double> carrosPopulares1 = new LinkedHashMap<>() {{
             put("gol", 14.4);
@@ -98,6 +123,7 @@ public class ExemploMap {
         }};
         System.out.println(carrosPopulares1.toString());
 
+        //aqui métod treeMap
         System.out.println("Exiba o dicionário ordenado pelo modelo: ");
         Map<String, Double> carrosPopulares2 = new TreeMap<>(carrosPopulares1);
         System.out.println(carrosPopulares2.toString());
@@ -106,5 +132,5 @@ public class ExemploMap {
         carrosPopulares.clear();
 
         System.out.println("Confira se o dicionário está vazio: " + carrosPopulares.isEmpty());
-    }
+   }
 }

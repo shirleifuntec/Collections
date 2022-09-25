@@ -1,6 +1,6 @@
 package Map;
 
-
+//Ordenação dentro de um Map
 /*Dadas as seguintes informações sobre meus livros favoritos e seus autores,
 crie um dicionário e ordene este dicionário:
 exibindo (Nome Autor - Nome Livro);
@@ -16,10 +16,13 @@ public class ExemploOrdenacaoMap {
 
         System.out.println("--\tOrdem aleatória\t--");
         Map<String, Livro> meusLivros = new HashMap<>() {{
+        	//autor , nome, numero de paginas
             put(" Hawking, Stephen", new Livro("Uma Breve História do Tempo", 256));
             put(" Duhigg, Charles", new Livro("O Poder do Hábito", 408));
             put(" Harari, Yuval Noah", new Livro("21 Lições Para o Século 21", 432));
         }};
+        
+        //como vai imprimir somente a chave (autor) e o nome do livro, fazemos o for
         for (Map.Entry<String, Livro> livro : meusLivros.entrySet())
             System.out.println(livro.getKey() + " - " + livro.getValue().getNome());
 
@@ -37,14 +40,16 @@ public class ExemploOrdenacaoMap {
         for (Map.Entry<String, Livro> livro : meusLivros2.entrySet())
             System.out.println(livro.getKey() + " - " + livro.getValue().getNome());
 
+        
+        //aqui precisamos do comaprable, pq pegamos livros que é um valor
         System.out.println("--\tOrdem alfabética nomes dos livros\t--");
-
+        //preciso do TreeSet
         Set<Map.Entry<String, Livro>> meusLivros3 = new TreeSet<>(new ComparatorNome());
         meusLivros3.addAll(meusLivros.entrySet());
         for (Map.Entry<String, Livro> livro : meusLivros3)
             System.out.println(livro.getKey() + " - " + livro.getValue().getNome());
 
-//        System.out.println("--\tOrdem número de página\t--"); //Pra você
+
 
     }
 }
@@ -53,11 +58,14 @@ class Livro {
     private String nome;
     private Integer paginas;
 
+   
+    //contrutor
     public Livro(String nome, Integer paginas) {
         this.nome = nome;
         this.paginas = paginas;
     }
 
+    //metodos get
     public String getNome() {
         return nome;
     }
@@ -66,7 +74,8 @@ class Livro {
         return paginas;
     }
 
-    @Override
+    //metodos equals, hasCode e Tostring
+    @Override 
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -90,7 +99,7 @@ class Livro {
 
 class ComparatorNome implements Comparator<Map.Entry<String, Livro>>{
 
-    @Override
+    @Override//pego o valor (nome) e comparo com o proximos
     public int compare(Map.Entry<String, Livro> l1, Map.Entry<String, Livro> l2) {
         return l1.getValue().getNome().compareToIgnoreCase(l2.getValue().getNome());
     }

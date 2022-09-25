@@ -72,7 +72,7 @@ public class ExemploSet {
         System.out.println(notas);
 
        
-        //como trabalhamos com set, não podemos usar o hasSet
+        //aquinão podemos usar o hasSet
         //temos que utilizar o linkedHashSet
         System.out.println("Exiba todas as notas na ordem em que foram informados: ");
         Set<Double> notas2 = new LinkedHashSet<>();
